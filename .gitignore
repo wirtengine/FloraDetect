@@ -1,0 +1,19 @@
+# Variables de entorno (contiene claves y configuraciones privadas)
+.env
+
+# Entorno virtual de Python
+venv/
+
+# Archivos de Python generados
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+
+# Archivos del sistema operativo
+Thumbs.db
+.DS_Store
+
+# Datasets e imágenes capturadas (pesan mucho)
+data/raw/
+data/capturas/
