@@ -1,0 +1,8 @@
+# Dataset y modelos
+model_files/dataset/
+model_files/*.h5
+uploads/
+predictions.db
+*.pyc
+__pycache__/
+venv/
