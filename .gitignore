@@ -1,8 +1,11 @@
-# Dataset y modelos
-model_files/dataset/
-model_files/*.h5
-uploads/
-predictions.db
-*.pyc
+.env
 __pycache__/
-venv/
+.venv/
+node_modules/
+dist/
+ml/dataset/
+robot/pending_photos/
+backend/model_files/*.keras
+backend/model_files/*.json.bak
+entrenamiento.log
+mejora.log

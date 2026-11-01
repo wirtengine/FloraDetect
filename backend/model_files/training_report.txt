@@ -1,0 +1,26 @@
+Modelo: mnv2-10c-20261101-acc96.9
+Exactitud validación: 96.90%
+
+Por clase (precisión / recall):
+  Tomato___Bacterial_spot                        97.63%   96.86%
+  Tomato___Early_blight                          87.60%   94.17%
+  Tomato___Late_blight                           96.60%   99.13%
+  Tomato___Leaf_Mold                             97.54%   99.17%
+  Tomato___Septoria_leaf_spot                    98.00%   92.45%
+  Tomato___Spider_mites Two-spotted_spider_mite  99.47%   94.03%
+  Tomato___Target_Spot                           96.27%   92.26%
+  Tomato___Tomato_Yellow_Leaf_Curl_Virus         99.84%   98.60%
+  Tomato___Tomato_mosaic_virus                   96.77%  100.00%
+  Tomato___healthy                               89.95%   98.95%
+
+Matriz de confusión (filas=real, columnas=predicho):
+[[247   1   1   0   3   0   1   0   0   2]
+ [  0 113   5   0   0   0   1   1   0   0]
+ [  0   1 227   0   0   0   0   0   0   1]
+ [  0   0   0 119   1   0   0   0   0   0]
+ [  4   9   1   0 196   0   2   0   0   0]
+ [  0   0   0   0   0 189   1   0   2   9]
+ [  0   3   0   1   0   0 155   0   0   9]
+ [  2   1   0   2   0   1   1 633   2   0]
+ [  0   0   0   0   0   0   0   0 120   0]
+ [  0   1   1   0   0   0   0   0   0 188]]

@@ -1,0 +1,12 @@
+# Servidor de producción (ligero, sin TensorFlow: ~250 MB de RAM)
+fastapi==0.115.6
+uvicorn[standard]==0.32.1
+python-multipart==0.0.20
+pydantic-settings==2.7.0
+httpx==0.28.1
+PyJWT[crypto]==2.10.1
+pillow==11.0.0
+numpy==1.26.4
+opencv-python-headless==4.10.0.84
+loguru==0.7.3
+ai-edge-litert>=1.2.0

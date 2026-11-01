@@ -1,0 +1,6 @@
+# Entrenamiento y herramientas locales (incluye TensorFlow)
+-r requirements.txt
+psycopg[binary]==3.2.3
+python-dotenv==1.0.1
+tensorflow-cpu==2.17.1 ; sys_platform == "linux"
+tensorflow==2.17.1 ; sys_platform != "linux"
