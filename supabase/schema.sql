@@ -85,6 +85,7 @@ create table if not exists public.robots (
   is_active      boolean not null default true,
   last_seen_at   timestamptz,
   battery        numeric(5,2),
+  local_ip       text,                     -- IP del robot en su WiFi (botón "Abrir control")
   created_at     timestamptz not null default now()
 );
 create index if not exists robots_owner_idx on public.robots(owner_id);
@@ -240,3 +241,6 @@ exception when duplicate_object then null; end $$;
 -- 9. PRIMER ADMIN: después de registrarte en la web, ejecuta esto con tu correo
 -- ---------------------------------------------------------------------
 -- update public.profiles set role = 'admin' where email = 'tu-correo@ejemplo.com';
+
+-- Migración v2.1 (si ya habías creado la tabla antes):
+alter table public.robots add column if not exists local_ip text;

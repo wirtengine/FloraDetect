@@ -82,10 +82,13 @@ async def analyze_robot(background: BackgroundTasks, image: UploadFile = File(..
 
 
 @router.post("/robot/heartbeat")
-async def heartbeat(battery: float | None = Form(None), robot: Principal = Depends(current_robot)):
+async def heartbeat(battery: float | None = Form(None), local_ip: str | None = Form(None),
+                    robot: Principal = Depends(current_robot)):
     vals = {"last_seen_at": datetime.now(timezone.utc).isoformat()}
     if battery is not None:
         vals["battery"] = battery
+    if local_ip and len(local_ip) <= 45:
+        vals["local_ip"] = local_ip
     await db.update("robots", {"id": robot.robot["id"]}, vals)
     return {"ok": True, "robot": robot.robot["name"]}
 

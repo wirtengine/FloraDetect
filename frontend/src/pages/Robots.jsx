@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Bot, Copy, KeyRound, Plus, Power, Trash2 } from 'lucide-react'
+import { Bot, Copy, Gamepad2, KeyRound, Plus, Power, Trash2 } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 import { api } from '../lib/api'
 import { dateTime, isOnline, timeAgo } from '../lib/format'
@@ -11,7 +11,7 @@ export default function Robots() {
   const [newKey, setNewKey] = useState(null)
   const [error, setError] = useState(null)
 
-  const load = () => supabase.from('robots').select('id,name,location,description,api_key_prefix,is_active,last_seen_at,battery,created_at').order('created_at').then(({ data }) => setRobots(data ?? []))
+  const load = () => supabase.from('robots').select('id,name,location,description,api_key_prefix,is_active,last_seen_at,battery,created_at,local_ip').order('created_at').then(({ data }) => setRobots(data ?? []))
   useEffect(() => { load(); const t = setInterval(load, 60_000); return () => clearInterval(t) }, [])
 
   const create = async (e) => {
@@ -78,6 +78,13 @@ export default function Robots() {
               <div className="flex justify-between"><dt className="text-leaf-900/50">Clave</dt><dd className="font-mono text-xs">{r.api_key_prefix}…</dd></div>
               <div className="flex justify-between"><dt className="text-leaf-900/50">Creado</dt><dd className="text-xs">{dateTime(r.created_at)}</dd></div>
             </dl>
+            {r.local_ip && (
+              <a href={`http://${r.local_ip}/`} target="_blank" rel="noreferrer"
+                className={`btn mt-4 w-full ${isOnline(r) ? 'bg-leaf-700 text-white hover:bg-leaf-800' : 'border border-leaf-800/15 text-leaf-800'}`}>
+                <Gamepad2 className="h-4 w-4" /> Abrir control {isOnline(r) ? '' : '(último visto)'}
+              </a>
+            )}
+            {r.local_ip && <p className="mt-1 text-center text-[11px] text-leaf-900/50">Tu teléfono debe estar en el mismo WiFi que el robot · {r.local_ip}</p>}
             <div className="mt-4 flex gap-1 border-t border-leaf-900/5 pt-3">
               <button onClick={() => rotate(r)} className="btn-ghost px-3 text-xs"><KeyRound className="h-3.5 w-3.5" /> Nueva clave</button>
               <button onClick={() => toggle(r)} className="btn-ghost px-3 text-xs"><Power className="h-3.5 w-3.5" /> {r.is_active ? 'Desactivar' : 'Activar'}</button>
@@ -86,6 +93,16 @@ export default function Robots() {
           </div>
         ))}
         {robots.length === 0 && !showForm && <div className="card p-10 text-center text-leaf-900/60 md:col-span-2 xl:col-span-3">Aún no registras ningún robot.</div>}
+      </div>
+
+      <div className="card p-6">
+        <p className="font-display text-lg font-bold">Configurar el robot (sin programar)</p>
+        <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-leaf-900/80">
+          <li>Registra el robot aquí arriba y copia su clave <code>fd_…</code>.</li>
+          <li>Enciende el robot y conecta tu teléfono a la red <b>FloraRobot</b> (clave <code>flora1234</code>). Se abre la página de configuración (o entra a <code>http://192.168.4.1/setup</code>).</li>
+          <li>Elige el WiFi (en una feria: el <b>hotspot de tu teléfono</b>), su clave, pega la clave del robot y guarda.</li>
+          <li>Vuelve a esta página: aparecerá <b>Abrir control</b> en la tarjeta del robot.</li>
+        </ol>
       </div>
 
       <div className="card p-6">
